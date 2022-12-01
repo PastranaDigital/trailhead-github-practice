@@ -1,10 +1,109 @@
 <template>
-	<lightning-card title="Blah" icon-name="standard:account">
-		<div class="slds-p-around_medium">
+	<!-- <div class="slds-page-header slds-page-header_joined slds-page-header_bleed slds-shrink-none test-headerRegion slds-is-relative">
+		<div class="slds-media slds-media--center slds-has-flexi-truncate">
+			<div class="slds-col slds-has-flexi-truncate firstHeaderRow">
+				<div class="slds-media slds-no-space slds-grow">
+
+					<div class="slds-media__body slds-align-middle">
+						<h2 class="slds-card__header-title"><a class="slds-card__header-link baseCard__header-title-container" href="/lightning/r/500Dn000002IvJeIAK"><span class="slds-truncate slds-m-right--xx-small" title="Notes">Notes</span><span class="lds-shrink-none slds-m-right--xx-small" title="(3+)">(3+)</span></a></h2>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="slds-col slds-no-flex slds-grid slds-align-bottom">
+				</div>
+			</div>
+			<div>
+				<div class="slds-p-left_xx-small actionsContainer">
+
+				</div>
+			</div>
+		</div>
+		<div class="slds-grid">
+			<div class="slds-col slds-no-flex slds-grid slds-align-bottom slds-shrink"></div>
+		</div>
+	</div> -->
+
+
+	<article class="slds-card">
+		<header class="slds-p-around_medium slds-page-header slds-page-header_joined">
+			<div class="header-wrapper">
+				<lightning-icon icon-name="standard:custom" size="small"></lightning-icon>
+				<h2 class="slds-card__header-title">
+					<a class="slds-card__header-link baseCard__header-title-container" href="/500Dn000002IvJeIAK">
+						<span class="slds-truncate slds-m-right--xx-small" title="Notes">{componentTitle}</span>
+					</a>
+				</h2>
+			</div>
+		</header>
+		<div class="body-wrapper slds-p-horizontal_medium slds-p-top_small">
 			<template for:each={records} for:item="record">
-				<p key={record.Id}>{record.Id}</p>
+				<div key={record.Id} class="slds-p-vertical_xx-small">
+					<a href={record.addendumURL}>{record.Name}</a><br>
+
+					<div class="details-wrapper slds-list_horizontal slds-wrap">
+						<div class="label slds-text-color_weak">
+							Signed:
+						</div>
+						<div class="detail">
+
+							<!-- <span class="slds-checkbox"> -->
+							<input type="checkbox" name="Signed__c" disabled checked={record.Signed__c}>
+							<!-- </span> -->
+						</div>
+						<div class="label slds-text-color_weak">
+							Signed By:
+						</div>
+						<div class="detail">
+							{record.Signed_By__c}
+						</div>
+						<div class="label slds-text-color_weak">
+							Related Note:
+						</div>
+						<div class="detail">
+							<a href={record.parentURL}>{record.Note__r.Name}</a><br>
+						</div>
+					</div>
+				</div>
 			</template>
 		</div>
-		<!-- <p slot="footer"></p> -->
-	</lightning-card>
+		<div class="slds-card__footer">
+			<p><a href="">View All</a></p>
+		</div>
+	</article>
+
+
+	<!-- <lightning-card title={componentTitle} icon-name="standard:custom">
+		<header class="slds-media slds-media_center slds-has-flexi-truncate">
+			<div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+				<div class="slds-media__body">
+					<h2 class="slds-truncate" title="Einstein (10+)">
+						<a href="#" class="slds-card__header-link" title="Einstein (10+)">
+							<span class="slds-text-heading_small">Einstein (10+)</span>
+						</a>
+					</h2>
+				</div>
+			</div>
+			<div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+		</header>
+		<div class="slds-p-around_medium">
+			<template for:each={records} for:item="record">
+				<p key={record.Id} class="slds-p-vertical_medium">
+					<a href={record.addendumURL}>{record.Name}</a><br>
+					Signed:
+					<span class="slds-checkbox">
+						<input type="checkbox" name="Signed__c" disabled value={record.Signed__c}>
+					</span>
+					<br>
+					Signed By: {record.Signed_By__c}<br>
+					Related Note: <a href={record.parentURL}>{record.Note__r.Name}</a><br>
+				</p>
+			</template>
+		</div>
+		<p slot="footer">
+			View All
+		</p>
+	</lightning-card> -->
 </template>
+
+<!-- https://mtr-design.com/news/salesforce-mini-how-to-open-a-subtab-in-console-from-lightning-web-component -->
