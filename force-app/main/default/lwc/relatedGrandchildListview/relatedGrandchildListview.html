@@ -1,0 +1,10 @@
+<template>
+	<lightning-card title="Blah" icon-name="standard:account">
+		<div class="slds-p-around_medium">
+			<template for:each={records} for:item="record">
+				<p key={record.Id}>{record.Id}</p>
+			</template>
+		</div>
+		<!-- <p slot="footer"></p> -->
+	</lightning-card>
+</template>
