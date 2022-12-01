@@ -28,7 +28,8 @@ export default class RelatedGrandchildListview extends LightningElement {
 					updatedRecords.push(recordData);
 				});
 				this.records = updatedRecords.slice(0, this.limitForRecords);
-				this.componentTitle = this.componentTitle.replace('0', updatedRecords.length);
+				let recordCount = updatedRecords.length > 3 ? '3+' : updatedRecords.length;
+				this.componentTitle = this.componentTitle.replace('0', recordCount);
 				this.error = undefined;
 				console.log('this.records: ', JSON.parse(JSON.stringify(this.records)));
 			})

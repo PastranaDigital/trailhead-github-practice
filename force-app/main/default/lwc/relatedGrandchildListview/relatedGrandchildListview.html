@@ -36,9 +36,9 @@
 				</h2>
 			</div>
 		</header>
-		<div class="body-wrapper slds-p-horizontal_medium slds-p-top_small">
+		<div class="body-wrapper slds-p-horizontal_medium slds-p-top_x-small">
 			<template for:each={records} for:item="record">
-				<div key={record.Id} class="slds-p-vertical_xx-small">
+				<div key={record.Id} class="slds-p-top_x-small slds-p-bottom_xx-small">
 					<a href={record.addendumURL}>{record.Name}</a><br>
 
 					<div class="details-wrapper slds-list_horizontal slds-wrap">
@@ -46,10 +46,8 @@
 							Signed:
 						</div>
 						<div class="detail">
-
-							<!-- <span class="slds-checkbox"> -->
-							<input type="checkbox" name="Signed__c" disabled checked={record.Signed__c}>
-							<!-- </span> -->
+							<!-- <input type="checkbox" name="Signed__c" disabled checked={record.Signed__c}> -->
+							<lightning-input type="checkbox" label=" " name="Signed__c" checked={record.Signed__c} disabled></lightning-input>
 						</div>
 						<div class="label slds-text-color_weak">
 							Signed By:
