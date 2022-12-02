@@ -4,9 +4,20 @@
     align-items: center;
 }
 
+.header {
+	flex: 1;
+    min-width: 0;
+}
+
 .body-wrapper {
 	/* places the hard line between header and body */
 	border-top: 1px solid rgb(201, 201, 201); 
+}
+
+.error-wrapper {
+	color: red;
+	font-weight: 600;
+	text-align: center;
 }
 
 .label {
@@ -16,4 +27,12 @@
 
 .detail {
 	width: 70%;
+}
+
+.view-all-button {
+	--slds-c-button-line-height: 16px !important;
+}
+
+.view-all-button:hover {
+    text-decoration: underline;
 }

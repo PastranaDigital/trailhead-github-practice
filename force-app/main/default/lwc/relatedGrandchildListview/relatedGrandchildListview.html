@@ -3,50 +3,62 @@
 		<header class="slds-p-around_medium slds-page-header slds-page-header_joined">
 			<div class="header-wrapper">
 				<lightning-icon icon-name="standard:custom" size="small"></lightning-icon>
-				<h2 class="slds-card__header-title">
-					<a class="slds-card__header-link baseCard__header-title-container" href="/500Dn000002IvJeIAK">
+				<h2 class="slds-card__header-title header">
+					<a class="slds-card__header-link baseCard__header-title-container" onclick={handleViewAllClick}>
 						<span class="slds-truncate slds-m-right--xx-small" title="Notes">{componentTitle}</span>
 					</a>
 				</h2>
+				<lightning-button-menu alternative-text="Show menu" icon-size="x-small">
+					<lightning-menu-item value="New" label="New"></lightning-menu-item>
+				</lightning-button-menu>
 			</div>
 		</header>
-		<div class="body-wrapper slds-p-horizontal_medium slds-p-top_x-small">
-			<!-- iterating over the List of Records (Array of Objects) received from Salesforce -->
-			<!-- https://www.sfdcpoint.com/salesforce/foreach-template-directives-in-lwc/ -->
-			<template for:each={records} for:item="record">
-				<!-- card that contains the information from one record in the list -->
-				<div key={record.Id} class="slds-p-top_x-small slds-p-bottom_xx-small">
-					<a href={record.addendumURL}>{record.Name}</a><br>
-					<!-- layout of details and labels -->
-					<div class="details-wrapper slds-list_horizontal slds-wrap">
-						<!-- flex layout so each "cell" needs a div wrapper -->
-						<div class="label slds-text-color_weak">
-							Signed:
-						</div>
-						<div class="detail">
-							<lightning-input type="checkbox" label=" " name="Signed__c" checked={record.Signed__c} disabled></lightning-input>
-						</div>
+		<template if:false={showError}>
+			<template if:true={showBodyAndFooter}>
+				<div class="body-wrapper slds-p-horizontal_medium slds-p-top_x-small">
+					<!-- iterating over the List of Records (Array of Objects) received from Salesforce -->
+					<!-- https://www.sfdcpoint.com/salesforce/foreach-template-directives-in-lwc/ -->
+					<template for:each={records} for:item="record">
+						<!-- card that contains the information from one record in the list -->
+						<div key={record.Id} class="slds-p-top_x-small slds-p-bottom_xx-small">
+							<a href={record.addendumURL}>{record.Name}</a><br>
+							<!-- layout of details and labels -->
+							<div class="details-wrapper slds-list_horizontal slds-wrap">
+								<!-- flex layout so each "cell" needs a div wrapper -->
+								<div class="label slds-text-color_weak">
+									Signed:
+								</div>
+								<div class="detail">
+									<lightning-input type="checkbox" label=" " name="Signed__c" checked={record.Signed__c} disabled></lightning-input>
+								</div>
 
-						<div class="label slds-text-color_weak">
-							Signed By:
-						</div>
-						<div class="detail">
-							{record.Signed_By__c}
-						</div>
+								<div class="label slds-text-color_weak">
+									Signed By:
+								</div>
+								<div class="detail">
+									{record.Signed_By__c}
+								</div>
 
-						<div class="label slds-text-color_weak">
-							Related Note:
+								<div class="label slds-text-color_weak">
+									Related Note:
+								</div>
+								<div class="detail">
+									<a href={record.parentURL}>{record.Note__r.Name}</a><br>
+								</div>
+							</div>
 						</div>
-						<div class="detail">
-							<a href={record.parentURL}>{record.Note__r.Name}</a><br>
-						</div>
-					</div>
+					</template>
+				</div>
+				<div class="slds-card__footer">
+					<lightning-button variant="base" label="View All" title="View All" onclick={handleViewAllClick} class="slds-m-horizontal_small view-all-button"></lightning-button>
 				</div>
 			</template>
-		</div>
-		<div class="slds-card__footer">
-			<p><a href="">View All</a></p>
-		</div>
+		</template>
+		<template if:true={showError}>
+			<div class="body-wrapper error-wrapper slds-p-horizontal_medium slds-p-vertical_small">
+				ERROR
+			</div>
+		</template>
 	</article>
 </template>
 

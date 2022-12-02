@@ -1,4 +1,5 @@
 import { LightningElement, api } from 'lwc';
+//? https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.reference_wire_adapters_object_info
 // import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 //? Apex class that is called
 import getRelatedRecords from '@salesforce/apex/RelatedGCListviewController.getRelatedAddendums';
@@ -10,6 +11,8 @@ export default class RelatedGrandchildListview extends LightningElement {
 	error;  //? allows us to toggle the error state of the component
 	componentTitle = 'Addendums (0)'; //? will later be updated to show the correct number of results
 	URL = '/';
+	showBodyAndFooter = true;
+	showError = false;
 
 	//? lifecycle method of the LWC component that is called only once at the beginning
 	connectedCallback() {
@@ -19,6 +22,8 @@ export default class RelatedGrandchildListview extends LightningElement {
 	//? Houses all the setup work that needs to be done at the beginning of the component
 	getRecords() {
 		//? Calling Apex Imperatively & sending in the recordId
+		//? https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.apex_call_imperative
+		// this.recordId = 'THROW_ERROR'; //! throw error
 		getRelatedRecords ({ incomingId: this.recordId })
 			.then((result) => {
 				this.records = result;
@@ -38,7 +43,10 @@ export default class RelatedGrandchildListview extends LightningElement {
 
 				//? changes the number in the title based on the limitForRecords variable
 				//? will show the number (3) or the limitForRecords number as (3+)
+				//? https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
 				let recordCount = updatedRecords.length > this.limitForRecords ? `${this.limitForRecords}+` : updatedRecords.length;
+
+				if (this.records.length === 0) this.showBodyAndFooter = false;
 				
 				//? swap out the 0 for the correct number of records in the componentTitle
 				this.componentTitle = this.componentTitle.replace('0', recordCount);
@@ -46,9 +54,14 @@ export default class RelatedGrandchildListview extends LightningElement {
 			})
 			.catch((error) => {
 				this.error = error;
+				this.showError = true;
 				this.records = undefined;
 				console.error('ERROR: ', this.error.message);
 			});
+	}
+
+	handleViewAllClick() {
+		alert('view all');
 	}
 }
 
