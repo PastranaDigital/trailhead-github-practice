@@ -5,12 +5,13 @@
 }
 
 .body-wrapper {
-	border-top: 1px solid rgb(201, 201, 201);
+	/* places the hard line between header and body */
+	border-top: 1px solid rgb(201, 201, 201); 
 }
 
 .label {
 	width: 30%;
-    padding-right: var(--lwc-spacingSmall,0.75rem);
+    padding-right: var(--lwc-spacingSmall, 0.75rem);
 }
 
 .detail {
